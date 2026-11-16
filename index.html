@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Little Steps Play Therapy | Child &amp; Family Play Therapy</title>
+<meta name="description" content="Play therapy for children, in a safe and gentle space for them to grow, express and heal through play.">
+
+<!-- Fonts: Fraunces (headings, warm & rounded) + Karla (body, humanist sans) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sage:        #7C9885;
+    --sage-dark:   #5A7863;
+    --sky:         #7A96A8;
+    --sand:        #E3986B;
+    --sand-light:  #F2C572;
+    --cream:       #F8F5EF;
+    --paper:       #FFFFFF;
+    --ink:         #2B3A36;
+    --ink-soft:    #56645F;
+    --line:        #E3DDD0;
+
+    --font-head: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    --container: 1100px;
+    --radius: 20px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+  body{
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img{ max-width: 100%; display: block; }
+
+  h1, h2, h3{
+    font-family: var(--font-head);
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0 0 0.5em 0;
+    color: var(--ink);
+  }
+
+  p{ margin: 0 0 1em 0; max-width: 62ch; }
+
+  a{ color: var(--sage-dark); }
+
+  .wrap{
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  section{ padding: 96px 0; }
+  @media (max-width: 640px){ section{ padding: 64px 0; } }
+
+  /* ---------- Accessibility ---------- */
+  :focus-visible{
+    outline: 3px solid var(--sky);
+    outline-offset: 3px;
+  }
+  .skip-link{
+    position: absolute; left: -999px; top: 0;
+    background: var(--ink); color: #fff; padding: 12px 18px;
+    border-radius: 0 0 8px 0; z-index: 200;
+  }
+  .skip-link:focus{ left: 0; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- Header / nav ---------- */
+  header{
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(248,245,239,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+  }
+  .brand{
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--sage-dark);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+  }
+  .nav-links{
+    display: flex; gap: 34px; list-style: none; margin: 0; padding: 0;
+  }
+  .nav-links a{
+    text-decoration: none; color: var(--ink); font-weight: 600; font-size: 0.97rem;
+    padding: 6px 2px; border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .nav-links a:hover{ border-color: var(--sand); }
+
+  .nav-cta{
+    display: inline-block;
+    background: var(--sage);
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    transition: background 0.2s ease;
+  }
+  .nav-cta:hover{ background: var(--sage-dark); }
+
+  .menu-toggle{
+    display: none;
+    background: none; border: none; cursor: pointer;
+    width: 42px; height: 42px;
+    align-items: center; justify-content: center;
+  }
+  .menu-toggle span, .menu-toggle::before, .menu-toggle::after{
+    content: ""; display: block; width: 22px; height: 2px; background: var(--ink);
+    position: relative; transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .menu-toggle::before{ position: absolute; transform: translateY(-7px); }
+  .menu-toggle::after{ position: absolute; transform: translateY(7px); }
+  .menu-toggle[aria-expanded="true"] span{ opacity: 0; }
+  .menu-toggle[aria-expanded="true"]::before{ transform: rotate(45deg); }
+  .menu-toggle[aria-expanded="true"]::after{ transform: rotate(-45deg); }
+
+  @media (max-width: 780px){
+    .nav-links, .nav-cta{ display: none; }
+    .menu-toggle{ display: flex; }
+    .nav-links.open{
+      display: flex; flex-direction: column; gap: 0;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--paper); border-bottom: 1px solid var(--line);
+      padding: 8px 28px 20px;
+    }
+    .nav-links.open a{ padding: 14px 0; border-bottom: 1px solid var(--line); width: 100%; }
+    .nav-cta.open{ display: inline-block; margin: 16px 28px 20px; text-align: center; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 110px;
+  }
+  .hero-blob{
+    position: absolute;
+    z-index: 0;
+    filter: blur(0.5px);
+  }
+  .hero .wrap{
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-eyebrow{
+    display: inline-block;
+    color: var(--sage-dark);
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+    max-width: 12ch;
+  }
+  .hero h1 .accent{
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .accent svg{
+    position: absolute; left: 0; bottom: -0.12em; width: 100%; height: 0.3em;
+    z-index: -1;
+  }
+  .hero-lede{
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin-top: 18px;
+  }
+  .hero-actions{
+    display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap;
+  }
+  .btn-primary{
+    background: var(--sand);
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    display: inline-block;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover{ background: #d6885a; transform: translateY(-1px); }
+  .btn-secondary{
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 20px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .hero-art{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--sage) 0%, var(--sky) 100%);
+  }
+  .hero-art img{
+    width: 100%; height: 100%; object-fit: cover;
+    mix-blend-mode: normal;
+  }
+  .hero-art .caption-tag{
+    position: absolute; left: 18px; bottom: 18px;
+    background: rgba(255,255,255,0.92);
+    color: var(--ink);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px){
+    .hero .wrap{ grid-template-columns: 1fr; }
+    .hero-art{ order: -1; aspect-ratio: 16/10; }
+  }
+
+  /* ---------- Intro ---------- */
+  .intro{
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .intro .wrap{
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 60px;
+  }
+  .intro h2{ font-size: 2rem; max-width: 9ch; }
+  .intro-body p{ max-width: 58ch; color: var(--ink-soft); }
+  @media (max-width: 780px){
+    .intro .wrap{ grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  /* ---------- Services ---------- */
+  .services h2{ font-size: 2rem; }
+  .services-intro{ max-width: 56ch; color: var(--ink-soft); margin-bottom: 52px; }
+
+  .service-row{
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 26px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .service-row:last-child{ border-bottom: 1px solid var(--line); }
+  .service-num{
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    color: var(--sand);
+    font-weight: 600;
+  }
+  .service-row h3{ font-size: 1.35rem; margin-bottom: 8px; }
+  .service-row p{ color: var(--ink-soft); }
+
+  @media (max-width: 600px){
+    .service-row{ grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ---------- About therapist ---------- */
+  .about{
+    background: var(--sage-dark);
+    color: #F3F1E9;
+  }
+  .about h2, .about .hero-eyebrow{ color: #F3F1E9; }
+  .about .wrap{
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .about-photo{
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: rgba(255,255,255,0.12);
+  }
+  .about-body p{ color: #E7E5D9; max-width: 52ch; }
+  .credentials{
+    list-style: none; padding: 0; margin: 24px 0 0 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .credentials li{
+    display: flex; gap: 10px; align-items: baseline;
+    font-size: 0.96rem; color: #E7E5D9;
+  }
+  .credentials li::before{
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sand-light);
+    display: inline-block;
+    transform: translateY(-2px);
+  }
+  @media (max-width: 780px){
+    .about .wrap{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Testimonial ---------- */
+  .testimonial .wrap{ max-width: 780px; text-align: left; }
+  .testimonial blockquote{
+    font-family: var(--font-head);
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 0 0 20px 0;
+    color: var(--ink);
+  }
+  .testimonial cite{
+    font-style: normal;
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .contact .wrap{
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+  }
+  .contact h2{ font-size: 2rem; }
+  .contact-note{
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-top: 28px;
+  }
+  .contact-note strong{ color: var(--ink); }
+
+  .field{ margin-bottom: 20px; }
+  .field label{
+    display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.94rem;
+  }
+  .field input, .field textarea{
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .field input:focus, .field textarea:focus{
+    outline: none;
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(122,150,168,0.25);
+  }
+  .field textarea{ min-height: 130px; resize: vertical; }
+
+  .form-foot{
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .btn-submit{
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .btn-submit:hover{ background: var(--sage-dark); }
+
+  .form-status{
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .form-status[data-state="ok"]{ color: var(--sage-dark); }
+  .form-status[data-state="error"]{ color: #B0523B; }
+
+  .mailto-alt{ font-size: 0.92rem; color: var(--ink-soft); margin-top: 18px; }
+
+  @media (max-width: 780px){
+    .contact .wrap{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background: var(--ink);
+    color: #CFD8D2;
+    padding: 48px 0 36px;
+  }
+  footer .wrap{
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px; flex-wrap: wrap;
+  }
+  footer .brand{ color: #F3F1E9; }
+  footer p{ color: #A9B5AE; font-size: 0.9rem; margin: 6px 0 0 0; }
+  .footer-links{ list-style: none; padding: 0; margin: 0; display: flex; gap: 22px; }
+  .footer-links a{ color: #CFD8D2; text-decoration: none; font-size: 0.92rem; }
+  .footer-links a:hover{ color: #fff; }
+  .footer-bottom{
+    margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.12);
+    font-size: 0.82rem; color: #8B9791;
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top">Little Steps <span style="color:var(--sand)">Play Therapy</span></a>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about-play-therapy">Play Therapy</a></li>
+      <li><a href="#services">Sessions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <!-- decorative background blobs -->
+    <svg class="hero-blob" width="520" height="520" style="top:-140px; right:-160px;" viewBox="0 0 520 520" aria-hidden="true">
+      <path fill="#7C9885" fill-opacity="0.18" d="M 320 60 C 420 90 480 200 450 300 C 420 400 300 460 200 430 C 100 400 40 290 70 190 C 100 90 220 30 320 60 Z"/>
+    </svg>
+    <svg class="hero-blob" width="360" height="360" style="bottom:-120px; left:-120px;" viewBox="0 0 360 360" aria-hidden="true">
+      <circle cx="180" cy="180" r="180" fill="#F2C572" fill-opacity="0.20"/>
+    </svg>
+
+    <div class="wrap">
+      <div>
+        <span class="hero-eyebrow">Play therapy for children, ages 4&ndash;12</span>
+        <h1>A gentle space to <span class="accent">play<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 C 30 2, 70 2, 98 9" stroke="#F2C572" stroke-width="6" fill="none" stroke-linecap="round"/></svg></span>, grow and feel understood</h1>
+        <p class="hero-lede">
+          I'm <!-- THERAPIST NAME --><strong>[Therapist Name]</strong>, a registered play therapist working with children and families across <!-- LOCATION -->[Town/Area]. Through play, children find their own way of making sense of big feelings.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Book a free chat</a>
+          <a class="btn-secondary" href="#about-play-therapy">What is play therapy?</a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <!-- HERO IMAGE: replace src with a real photo (child playing / calm playroom / sand tray, etc.) -->
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=900&auto=format&fit=crop" alt="A calm, softly lit playroom with toys and cushions, set up for a play therapy session">
+        <span class="caption-tag">The playroom</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTRO / WHAT IS PLAY THERAPY ================= -->
+  <section class="intro" id="about-play-therapy">
+    <div class="wrap">
+      <h2>Why play, not talk</h2>
+      <div class="intro-body">
+        <p>
+          Children don't always have the words for what they're feeling &mdash; but they can show us through play. Play therapy uses toys, art, sand, stories and movement as a child's natural language, giving them a safe way to process worry, change, loss or big transitions at their own pace.
+        </p>
+        <p>
+          Sessions take place in a warm, consistent space where a child leads and I follow, gently reflecting back what I notice. Over time, this builds confidence, emotional regulation and a stronger sense of self &mdash; skills that carry into home, friendships and school.
+        </p>
+        <p>
+          I work with children referred for anxiety, low mood, bereavement, family change, school difficulties, or simply a period of feeling "stuck." Every child's process looks different, and that's exactly the point.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <h2>Ways we can work together</h2>
+      <p class="services-intro">Sessions are tailored to your child and family &mdash; here's how a typical journey looks.</p>
+
+      <div class="service-row">
+        <span class="service-num">01</span>
+        <div>
+          <h3>Initial consultation</h3>
+          <p>A conversation with parents or carers (without the child present) to understand what's going on, agree goals, and answer any questions before sessions begin. Usually 50 minutes.</p>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <span class="service-num">02</span>
+        <div>
+          <h3>Individual play therapy sessions</h3>
+          <p>Weekly 45-minute sessions in the playroom, where your child leads the play while I provide a safe, consistent, non-judgemental presence. Most children attend for a term or more, reviewed regularly.</p>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <span class="service-num">03</span>
+        <div>
+          <h3>Parent &amp; carer reviews</h3>
+          <p>Periodic check-ins to share gentle observations, celebrate progress, and adjust the approach together &mdash; always respecting your child's confidentiality within the playroom.</p>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <span class="service-num">04</span>
+        <div>
+          <h3>School &amp; setting liaison</h3>
+          <p>With your consent, I can liaise with teachers or SENCOs to support your child's wider wellbeing, and offer school-based sessions where this is the best fit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT THERAPIST ================= -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-photo">
+        <!-- THERAPIST PHOTO: replace src -->
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" alt="Portrait of [Therapist Name], the play therapist" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="about-body">
+        <span class="hero-eyebrow" style="color:var(--sand-light)">About me</span>
+        <h2>Hello, I'm [Therapist Name]</h2>
+        <p>
+          I trained as a play therapist after several years working with children in <!-- BACKGROUND -->[previous role, e.g. primary education / social care], where I saw first-hand how powerfully play helps children process what words can't reach. Since qualifying, I've worked with children and families in schools, clinics and private practice.
+        </p>
+        <p>
+          I believe every child already holds the resources they need to heal &mdash; my role is simply to offer the space, safety and attunement for that to happen.
+        </p>
+        <ul class="credentials">
+          <li>Registered with the Play Therapy UK / BAPT <!-- REGISTRATION BODY --></li>
+          <li>Enhanced DBS checked</li>
+          <li>[Relevant qualification, e.g. PG Diploma in Play Therapy]</li>
+          <li>[Number]+ years working with children and families</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIAL ================= -->
+  <section class="testimonial">
+    <div class="wrap">
+      <blockquote>
+        &ldquo;[Placeholder testimonial &mdash; e.g. Our daughter looked forward to her sessions every week. We noticed a real difference in how she talked about her feelings at home.]&rdquo;
+      </blockquote>
+      <cite>&mdash; Parent of a 7-year-old client</cite>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2>Get in touch</h2>
+        <p style="color:var(--ink-soft)">
+          Have a question, or wondering if play therapy is right for your child? Send a message and I'll reply within two working days.
+        </p>
+        <div class="contact-note">
+          <strong>Please note:</strong> this form is not monitored 24/7 and isn't suitable for emergencies. If you or your child need urgent support, please contact your GP, call 111, or in a crisis call 999 / Samaritans on 116 123.
+        </div>
+        <p class="mailto-alt">
+          Prefer email? Write to <a href="mailto:hello@example.com">hello@example.com</a> directly.
+        </p>
+      </div>
+
+      <div>
+        <!--
+          FORMSPREE SETUP:
+          1. Create a free form at https://formspree.io
+          2. Replace YOUR_FORM_ID below with the ID Formspree gives you
+          3. That's it — submissions will email straight to your inbox
+        -->
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell me a little about your child and what's brought you here."></textarea>
+          </div>
+          <!-- honeypot field to reduce spam; hidden from real visitors -->
+          <div style="position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-foot">
+            <button class="btn-submit" type="submit">Send message</button>
+            <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top">Little Steps Play Therapy</a>
+      <p>[Town/Area], United Kingdom</p>
+      <p>&copy; <span id="year"></span> Little Steps Play Therapy. All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about-play-therapy">Play Therapy</a></li>
+      <li><a href="#services">Sessions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="wrap footer-bottom">
+    Registered play therapist &middot; Enhanced DBS checked &middot; Working in line with safeguarding best practice
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const toggle = document.querySelector('.menu-toggle');
+  const links = document.getElementById('nav-links');
+  const navCta = document.querySelector('.nav-cta');
+
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    links.classList.toggle('open');
+    navCta.classList.toggle('open');
+    toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+  });
+
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      links.classList.remove('open');
+      navCta.classList.remove('open');
+    });
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Contact form: AJAX submit to Formspree so we can show an inline status
+  // instead of redirecting the visitor away from the page.
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Sending…';
+    status.removeAttribute('data-state');
+
+    const data = new FormData(form);
+
+    // Honeypot check
+    if (data.get('company')) {
+      status.textContent = 'Something went wrong.';
+      status.setAttribute('data-state', 'error');
+      return;
+    }
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        status.textContent = 'Thank you — your message has been sent.';
+        status.setAttribute('data-state', 'ok');
+        form.reset();
+      } else {
+        status.textContent = 'Sorry, something went wrong. Please try emailing instead.';
+        status.setAttribute('data-state', 'error');
+      }
+    } catch (err) {
+      status.textContent = 'Sorry, something went wrong. Please try emailing instead.';
+      status.setAttribute('data-state', 'error');
+    }
+  });
+</script>
+
+</body>
+</html>
